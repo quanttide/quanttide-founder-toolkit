@@ -2,7 +2,7 @@
 
 创始人第二大脑的读写与计算工具箱：把靠目录命名约定组织的 Markdown 文档读成语义模型——人在里面写（日志、小说、洞察），AI 在上面算（提炼、建模、续写）。Dart 与 Rust 双实现，行为对齐。
 
-本仓库是 [quanttide-founder](https://github.com/quanttide-founder/quanttide-founder) 的子模块。
+本仓库是 [quanttide-founder](https://github.com/quanttide/quanttide-founder) 的子模块。
 
 ## 能做什么
 
@@ -22,7 +22,7 @@
 
 ## 快速开始
 
-克隆主仓库后直接跑示例，示例默认定位 `assets/memory` 与 `assets/fiction`：
+克隆主仓库后直接跑示例，示例默认定位 `assets/context` 与 `assets/fiction`：
 
 ```sh
 # Dart

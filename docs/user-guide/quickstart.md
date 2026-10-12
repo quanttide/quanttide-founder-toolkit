@@ -15,7 +15,7 @@
 dependencies:
   quanttide_founder:
     git:
-      url: https://github.com/quanttide-founder/quanttide-founder-toolkit.git
+      url: https://github.com/quanttide/quanttide-founder-toolkit.git
       ref: dart/v0.1.0-alpha.1
       path: packages/dart
 ~~~
@@ -48,7 +48,7 @@ quanttide-founder = "0.1.0-alpha.1"
 
 ## 跑通第一个解析
 
-克隆主仓库后直接跑示例，示例默认定位 `assets/memory`：
+克隆主仓库后直接跑示例，示例默认定位 `assets/context`：
 
 ```{tab-set}
 
