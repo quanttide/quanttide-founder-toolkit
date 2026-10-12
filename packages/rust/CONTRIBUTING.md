@@ -32,7 +32,7 @@ cargo run --example fiction_workflow    # 三步提炼→编号轴→阶段流�
 cargo run --example agent_subscribe     # 状态流推给上层
 ```
 
-示例默认定位主仓库 `assets/context`、`assets/fiction`，也可跟参数指定路径。两个工作流示例在配置 `LLM_API_KEY` 时走真实判断（`memory_workflow` 演示只判前 10 行，全量逐行以分钟计），未配置则用演示客户端走显式降级，离线可跑。
+示例默认定位主仓库 `data/context`、`assets/fiction`，也可跟参数指定路径。两个工作流示例在配置 `LLM_API_KEY` 时走真实判断（`memory_workflow` 演示只判前 10 行，全量逐行以分钟计），未配置则用演示客户端走显式降级，离线可跑。
 
 ## 资产与对齐
 

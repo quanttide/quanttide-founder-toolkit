@@ -48,7 +48,7 @@ quanttide-founder = "0.1.0-alpha.1"
 
 ## 跑通第一个解析
 
-克隆主仓库后直接跑示例，示例默认定位 `assets/context`：
+克隆主仓库后直接跑示例，示例默认定位 `data/context`：
 
 ```{tab-set}
 

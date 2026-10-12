@@ -11,7 +11,7 @@
 
 ### Changed
 
-- 同步主仓库子模块路径 `assets/memory` → `assets/context` 与组织迁移至 `quanttide`：文档路径示例与包元数据（`pubspec.yaml`、`Cargo.toml`）仓库地址更新
+- 同步主仓库子模块路径 `assets/memory` → `assets/context` → `data/context` 与组织迁移至 `quanttide`：文档路径示例与包元数据（`pubspec.yaml`、`Cargo.toml`）仓库地址更新
 
 ## [0.1.0-alpha.1] - 2026-09-27
 

@@ -22,7 +22,7 @@
 
 ## 快速开始
 
-克隆主仓库后直接跑示例，示例默认定位 `assets/context` 与 `assets/fiction`：
+克隆主仓库后直接跑示例，示例默认定位 `data/context` 与 `assets/fiction`：
 
 ```sh
 # Dart
