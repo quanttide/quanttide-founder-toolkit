@@ -1,5 +1,7 @@
 # quanttide_founder（Rust）
 
+> 当前为骨架：实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`，仅保留入口 `src/lib.rs`、包元数据与冒烟测试。重建时在 `src/` 下按 core / memory / fiction 分层添加。
+
 量潮创始人工具箱（quanttide-founder-toolkit）的 Rust 包，提供面向创始人角色的事务与工具能力。
 
 ## 安装
@@ -9,7 +11,9 @@
 quanttide-founder = "0.1.0-alpha.2"
 ```
 
-## 模块
+## 模块（归档结构）
+
+以下为归档前的分层，重建时按此结构添加：
 
 ```
 src/

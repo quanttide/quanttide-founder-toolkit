@@ -13,6 +13,10 @@
 
 - 同步主仓库子模块路径 `assets/memory` → `assets/context` → `data/context` 与组织迁移至 `quanttide`：文档路径示例与包元数据（`pubspec.yaml`、`Cargo.toml`）仓库地址更新
 
+### Removed
+
+- `packages/dart`、`packages/rust` 的业务代码、示例、测试与包内文档归档至 `data/archive/toolkit/`；两包仅保留入口、骨架与包元数据
+
 ## [0.1.0-alpha.1] - 2026-09-27
 
 仓库首个 alpha 发布。定位：创始人第二大脑的读写与计算工具箱——把靠目录命名约定组织的 Markdown 文档读成语义模型，人在里面写（日志、小说、洞察），AI 在上面算（提炼、建模、续写）。本版本完成读写基础（解析、规则、编排），计算能力是后续方向。

@@ -6,9 +6,7 @@ repository: https://github.com/quanttide/quanttide-founder-toolkit
 environment:
   sdk: ^3.12.2
 
-# Add regular dependencies here.
 dependencies:
-  yaml: ^3.1.2
 
 dev_dependencies:
   lints: ^6.0.0

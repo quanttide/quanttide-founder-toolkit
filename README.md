@@ -4,6 +4,8 @@
 
 本仓库是 [quanttide-founder](https://github.com/quanttide/quanttide-founder) 的子模块。
 
+> 当前为骨架：两包的业务代码、示例、测试与包内文档已归档至 `data/archive/toolkit/`；包内仅保留入口、骨架与包元数据。重建时按各包 README 的分层添加。
+
 ## 能做什么
 
 - 解析：装载 memory 与 fiction 两类仓库，产出日志、档案、洞察、路线图、小说、观察站模型；没有二级标题、没有一级标题、章节未编号都照常解析
@@ -22,20 +24,17 @@
 
 ## 快速开始
 
-克隆主仓库后直接跑示例，示例默认定位 `data/context` 与 `assets/fiction`：
+业务代码与示例已归档，当前只能执行包级冒烟测试：
 
 ```sh
 # Dart
-cd packages/dart
-dart pub get
-dart run example/parse_memory.dart
+cd packages/dart && dart pub get && dart test
 
 # Rust
-cd packages/rust
-cargo run --example parse_memory
+cd packages/rust && cargo test
 ```
 
-安装进你自己的项目、读懂输出、改规则文件，见[用户指南](docs/user-guide/index.md)。
+归档前的示例见 `data/archive/toolkit/`；安装与使用方法待重建后恢复。
 
 ## 文档
 
