@@ -17,7 +17,7 @@ cargo clippy
 
 五组行为钉子：`engine` / `fiction` / `memory` / `parse` / `rules`，另有 lib 单测。语义行为两条路径都要钉住：
 
-- `semantic_llm`——按提示词里的判据标记回 JSON，覆盖「LLM 首选」路径；
+- `semantic_llm`——按提示词里的验收标准标记回 JSON，覆盖「LLM 首选」路径；
 - `demo_llm`——回纯文本，判断必然失败，覆盖「规则降级」路径。
 
 两个客户端都注入 `LLM::with_client`，测试不发网络请求。
@@ -38,7 +38,7 @@ cargo run --example agent_subscribe     # 状态流推给上层
 
 与 Dart 包 `quanttide_founder` 行为对齐（memory 解析、fiction 解析、语义提取、四步/三步编排），两处按 Rust 的做法另选实现：
 
-- **LLM 调用**不自带客户端接口，直接用 [quanttide-agent](https://crates.io/crates/quanttide-agent) 的 `LLM`——`Engine::judge` 与 `LlmExtractor` 按判据向它要判断与填表结果；判据是 YAML 数据（`tests/fixtures/`），语义处不再有关键词匹配
+- **LLM 调用**不自带客户端接口，直接用 [quanttide-agent](https://crates.io/crates/quanttide-agent) 的 `LLM`——`Engine::judge` 与 `LlmExtractor` 按验收标准向它要判断与填表结果；验收标准是 YAML 数据（`tests/fixtures/`），语义处不再有关键词匹配
 - **域编排**不用手写流转，用 [statig](https://crates.io/crates/statig) 状态机——事件进、状态出，走到哪一步一目了然；判断器作为上下文随事件进场
 
 本包自身的两条约定：

@@ -4,7 +4,7 @@
 
 ## 规则文件
 
-规则文件（Artifact）描述一种文档类型的读法：文档类型、标题来源、说明位置、章节切分与提取字段，外加两块数据——`criteria`（归类判据：意图、判据、正例、反例、易混例）与 `grades`（分级类别）。以 `tests/fixtures/rules/profile.yaml` 为例：
+规则文件（Artifact）描述一种文档类型的读法：文档类型、标题来源、说明位置、章节切分与提取字段，外加两块数据——`criteria`（归类验收标准：意图、验收标准、正例、反例、易混例）与 `grades`（分级类别）。以 `tests/fixtures/rules/profile.yaml` 为例：
 
 ~~~yaml
 name: profile            # 类别 key——去向分类输出的就是这个名字
@@ -37,7 +37,7 @@ sections:
   unknown_content: "保留在 paragraphs 中，不丢弃"
 ~~~
 
-`instruction()` 把读法转成自然语言描述，`criteria_instruction()` 把判据转成判断提示，都供 LLM 用；LLM 按规则填表与判断，不自由发挥。`split_by` / `source` / `location` 是固定取值（H1-H6、first_h1 等），`split_by: h7` 这类写法加载即失败。
+`instruction()` 把读法转成自然语言描述，`criteria_instruction()` 把验收标准转成判断提示，都供 LLM 用；LLM 按规则填表与判断，不自由发挥。`split_by` / `source` / `location` 是固定取值（H1-H6、first_h1 等），`split_by: h7` 这类写法加载即失败。
 
 ## 加载
 

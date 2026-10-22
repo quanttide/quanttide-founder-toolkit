@@ -19,17 +19,17 @@ quanttide-founder = "0.1.0-alpha.2"
 src/
 ├── core/            跨域共享（域依赖 core，core 不依赖域）
 │   ├── parse.rs         Markdown 解析 + 结构切分
-│   ├── rules.rs         Artifact / Workflow 加载（判据、分级、固定取值均加载期校验）
+│   ├── rules.rs         Artifact / Workflow 加载（验收标准、分级、固定取值均加载期校验）
 │   └── engine.rs        语义提取 + scan / judge / merge
 ├── memory/          memory 域
 │   ├── models.rs        JournalEntry / InsightDoc / ProfileDoc / RoadmapDoc / Tag
 │   ├── repository.rs    MemoryRepository
-│   ├── rules.rs         内置规则资产（类别、判据、分级都是数据）
+│   ├── rules.rs         内置规则资产（类别、验收标准、分级都是数据）
 │   └── states.rs        四步流程状态机 + 判断规则（分类/分级/聚类/合并/升降级）
 ├── fiction/         fiction 域
 │   ├── models.rs        Novel / Chapter / Stage / Observation
 │   ├── repository.rs    FictionRepository
-│   ├── rules.rs         内置规则资产（取样/观察/片段/包装的判据与字段）
+│   ├── rules.rs         内置规则资产（取样/观察/片段/包装的验收标准与字段）
 │   └── states.rs        三步提炼状态机 + 结构判断（编号轴/阶段流转/包装文案）
 └── error.rs         统一错误
 ```
@@ -58,7 +58,7 @@ if let Some(classified) = machine.state().classified() {
 }
 ```
 
-判断规则（`classify` / `grade` / `decide_merge` / `cluster`…）吃 `&Engine`：LLM 按 YAML 判据首选，失败走显式规则降级；结构判断（`assign_number` / `find_gaps`…）是纯函数。
+判断规则（`classify` / `grade` / `decide_merge` / `cluster`…）吃 `&Engine`：LLM 按 YAML 验收标准首选，失败走显式规则降级；结构判断（`assign_number` / `find_gaps`…）是纯函数。
 
 ### 订阅状态流
 
@@ -81,7 +81,7 @@ let extractor = LlmExtractor::new(LLM::default()); // LLM_MODEL / LLM_BASE_URL /
 let result = extractor.extract(&sections, &Artifact::from_file("../../tests/fixtures/rules/profile.yaml")?)?;
 ```
 
-`Engine::new(LLM::default())` 同理；`engine.judge(判据, items)` 结构化进出——
+`Engine::new(LLM::default())` 同理；`engine.judge(验收标准, items)` 结构化进出——
 输出必须是 `{decision, reason}`，缺 reason 视为错误，不让「缺失」看起来正常。
 
 ## 规则与工作流 YAML
@@ -93,13 +93,13 @@ let rule = quanttide_founder::Artifact::from_file("../../tests/fixtures/rules/pr
 let workflow = quanttide_founder::Workflow::from_file("../../tests/fixtures/workflows/classify.yaml")?;
 ```
 
-判据写在规则里：类别归谁由 `criteria`（意图/判据/正例/反例/易混例）说了算，
+验收标准写在规则里：类别归谁由 `criteria`（意图/验收标准/正例/反例/易混例）说了算，
 换一份 YAML 就换一种解读方式，代码不动。
 
 ## 文档
 
 - [docs/index.md](docs/index.md)——设计与执行的错位：设计意图、诊断与修复对照
-- [docs/criteria.md](docs/criteria.md)——九处语义判断的判据（意图/判据/边界）
+- [docs/criteria.md](docs/criteria.md)——九处语义判断的验收标准（意图/验收标准/边界）
 - [ROADMAP.md](docs/dev-guide/roadmap.md)——重构路线图与验收记录
 - [CONTRIBUTING.md](CONTRIBUTING.md)——开发命令、测试与发布约定
 

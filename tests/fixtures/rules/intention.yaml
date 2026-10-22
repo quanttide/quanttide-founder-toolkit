@@ -1,4 +1,4 @@
-# intention 的读法与判据
+# intention 的读法与验收标准
 # 去向分类的输入之一：「我到底想要什么」由这里的 criteria 判定
 
 name: intention
@@ -7,7 +7,7 @@ document_type: intention
 criteria:
   intent: 我到底想要什么——意愿与边界
   rules: |
-    判据：文本回答「谁想要什么」——意愿、要求、边界，且主语是写作者自己。
+    验收标准：文本回答「谁想要什么」——意愿、要求、边界，且主语是写作者自己。
     拿不准时输出 journal，不收即不错收。
   positive:
     - 先把发布流程澄清

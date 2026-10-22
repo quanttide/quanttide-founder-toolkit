@@ -1,6 +1,6 @@
-# insight 文档的读法与判据
+# insight 文档的读法与验收标准
 # name + criteria 是去向分类的输入（原 Destination 的四个变体就是这四份文件的名字），
-# title / description / sections 是读法——改解读、改判据只改这里，代码不动
+# title / description / sections 是读法——改解读、改验收标准只改这里，代码不动
 
 name: insight
 document_type: insight
@@ -8,7 +8,7 @@ document_type: insight
 criteria:
   intent: 我发现了什么——一个新认识
   rules: |
-    判据：文本在表达一个新认识（对规律、原因、机制的重新理解），不是评价、不是意愿、不是事件复述。
+    验收标准：文本在表达一个新认识（对规律、原因、机制的重新理解），不是评价、不是意愿、不是事件复述。
     拿不准时输出 journal，不收即不错收。
   positive:
     - 我发现我不适合做产品
