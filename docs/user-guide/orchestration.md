@@ -115,4 +115,4 @@ fn broadcast(&mut self, _from: &TaskState, to: &TaskState, _ctx: &mut ()) {
 }
 ~~~
 
-订阅是进程内多个消费者的应用形态，不进工具箱的领域流水线；工具箱只保证 `machine.state()` 与挂钩点可用。选型与取舍的完整论证见[状态机设计](../dev-guide/state-machine.md)。
+订阅是进程内多个消费者的应用形态，不进标准库的领域流水线；标准库只保证 `machine.state()` 与挂钩点可用。选型与取舍的完整论证见[状态机设计](../dev-guide/state-machine.md)。

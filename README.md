@@ -1,6 +1,6 @@
-# 量潮创始人工具箱（quanttide-founder-toolkit）
+# 量潮创始人标准库（quanttide-founder-toolkit）
 
-创始人第二大脑的读写与计算工具箱：把靠目录命名约定组织的 Markdown 文档读成语义模型——人在里面写（日志、小说、洞察），AI 在上面算（提炼、建模、续写）。Dart 与 Rust 双实现，行为对齐。
+创始人第二大脑的读写与计算标准库：把靠目录命名约定组织的 Markdown 文档读成语义模型——人在里面写（日志、小说、洞察），AI 在上面算（提炼、建模、续写）。Dart 与 Rust 双实现，行为对齐。
 
 本仓库是 [quanttide-founder](https://github.com/quanttide/quanttide-founder) 的子模块。
 

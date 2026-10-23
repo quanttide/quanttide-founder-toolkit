@@ -2,7 +2,7 @@
 
 > 当前为骨架：实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`，仅保留入口 `src/lib.rs`、包元数据与冒烟测试。重建时在 `src/` 下按 core / memory / fiction 分层添加。
 
-量潮创始人工具箱（quanttide-founder-toolkit）的 Rust 包，提供面向创始人角色的事务与工具能力。
+量潮创始人标准库（quanttide-founder-toolkit）的 Rust 包，提供面向创始人角色的事务与工具能力。
 
 ## 安装
 
@@ -62,9 +62,9 @@ if let Some(classified) = machine.state().classified() {
 
 ### 订阅状态流
 
-工具箱的领域流水线是「取」：驱动完读一次 `machine.state()`（parse / workflow 四个示例）。
+标准库的领域流水线是「取」：驱动完读一次 `machine.state()`（parse / workflow 四个示例）。
 **进程内有多个消费者要实时知情时才是「推」**——状态每次变化推给订阅者
-（对照 BLoC 的 `bloc.stream.listen`）。这属应用形态，不进工具箱，
+（对照 BLoC 的 `bloc.stream.listen`）。这属应用形态，不进标准库，
 故由示例自带机器演示：[`examples/agent_subscribe.rs`](examples/agent_subscribe.rs)
 （Agent 驱动任务状态机，进度显示 / 流水记账 / 闸门提示各自订阅、各自退订，
 驱动方对观察方一无所知——statig 的 `after_transition` 钩子推快照）。

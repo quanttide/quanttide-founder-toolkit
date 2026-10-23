@@ -58,4 +58,4 @@ fn located(candidates: &mut Vec<String>, event: &Event) -> Outcome<MemoryState> 
 
 钩子签名是 `(&mut self, source: &State, target: &State, context: &mut ())`，在自己的 `impl` 块里实现，把 `target.clone()` 发给在册的发送端即可。完整可跑的演示是 `packages/rust/examples/agent_subscribe.rs`：Agent 只发事件，进度、流水、闸门提示各自订阅、各自退订，退订者收不到、机器照跑。
 
-边界的判断只有一条：驱动者就是唯一读者、跑完看结果，读 `machine.state()` 快照；进程内有多个消费者要实时知情才做订阅，而且订阅写在应用侧，不进工具箱的领域流水线。
+边界的判断只有一条：驱动者就是唯一读者、跑完看结果，读 `machine.state()` 快照；进程内有多个消费者要实时知情才做订阅，而且订阅写在应用侧，不进标准库的领域流水线。
