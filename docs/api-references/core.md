@@ -249,4 +249,4 @@ pub struct Candidate { pub source: String, pub text: String }
 :::
 ```
 
-`scan` 的候选来源是条目序号，`judge` 的返回去掉首尾空白；`run` 里 `scan` 步的关键词表是占位空表（与 Dart 侧一致），由调用方指定或从 `rules` 解析后再接。
+`scan` 的候选来源是清单里的序号，`judge` 的返回去掉首尾空白；`run` 里 `scan` 步的关键词表是占位空表（与 Dart 侧一致），由调用方指定或从 `rules` 解析后再接。

@@ -12,12 +12,12 @@
 ## CHANGELOG 分工
 
 - 根 `CHANGELOG.md`：只做索引，列出各包 CHANGELOG 的路径
-- `packages/dart/CHANGELOG.md`、`packages/rust/CHANGELOG.md`：版本记录正本，条目含 Added 与差异说明
-- 大版本条目另需定位说明、破坏性变更与迁移指南、Removed 清单；minor 条目不套用此规格
+- `packages/dart/CHANGELOG.md`、`packages/rust/CHANGELOG.md`：版本记录正本，记录含 Added 与差异说明
+- 大版本另需定位说明、破坏性变更与迁移指南、Removed 清单；minor 不套用此规格
 
 ## 发布流程
 
-包在同一个仓库，按 scope 分别发。标签格式 `dart/vX.Y.Z` 与 `rust/vX.Y.Z`，先核对目标包 CHANGELOG 有对应版本条目：
+包在同一个仓库，按 scope 分别发。标签格式 `dart/vX.Y.Z` 与 `rust/vX.Y.Z`，先核对目标包 CHANGELOG 有对应版本记录：
 
 ~~~sh
 cd packages/<dart|rust>
@@ -41,7 +41,7 @@ git push
 
 ## 发布检查
 
-1. 目标包 CHANGELOG 含 `## [X.Y.Z]` 条目，根索引指向正确
+1. 目标包 CHANGELOG 含 `## [X.Y.Z]` 那一段，根索引指向正确
 2. 工作区干净，门禁全绿（analyze/format/test 与 fmt/clippy/test）
 3. 标签不存在，audit 七项全过
 4. 发布顺序：先包、后主仓库；主仓库发布前确认子模块引用最新

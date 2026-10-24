@@ -30,7 +30,7 @@ sections:
   subsections: H3
   extract:
     - field: items
-      from: "节内列表条目"
+      from: "节内列表项"
       patterns:
         - "**名称**：详情"
         - "名称：详情"
@@ -72,11 +72,11 @@ println!("{}", rule.instruction());
 
 - `scan`：按关键词定位候选，代码做，确定性
 - `judge`：让 LLM 按 `rules` 判断，拿不准不收
-- `merge`：按策略合并条目，代码做
+- `merge`：按策略合并各条，代码做
 
 ~~~yaml
 name: classify
-description: 三问过滤——判断日志条目的去向
+description: 三问过滤——判断日志里每条的去向
 input: journal
 output: [insight, profile, roadmap, journal]
 steps:

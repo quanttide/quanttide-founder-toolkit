@@ -58,7 +58,7 @@ Rust 包（quanttide_founder）路线图。问题分析见 [docs/index.md](docs/
 
 ## 阶段六：执行缺陷修复
 
-- [x] `Engine::run` 的 `scan` 清空 `items`：scan 改为定位候选进 `WorkflowResult.candidates`，条目不动；关键词从 workflow 的 `rules` 文本读出（关键词是数据）
+- [x] `Engine::run` 的 `scan` 清空 `items`：scan 改为定位候选进 `WorkflowResult.candidates`，清单不动；关键词从 workflow 的 `rules` 文本读出（关键词是数据）
 - [x] `RuleBasedExtractor` 的「前言段 → description」改为配置（`description.location` 决定提取位置，`none` 则不提取）
 
 ## 验证
