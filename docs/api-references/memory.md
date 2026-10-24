@@ -261,4 +261,4 @@ pub fn should_fork_to_roadmap(item: &InsightItem) -> bool;
 :::
 ```
 
-两处签名保留了未参与判定的文本参数（`grade` 的 `_text`、`should_promote_to_profile` 的 `_item`），与 Dart 侧同形；`process_journal` 不收 Dart 侧未参与计算的 `Workflow` 参数，流程定义即状态机本身。
+两处签名保留了未参与判断的文本参数（`grade` 的 `_text`、`should_promote_to_profile` 的 `_item`），与 Dart 侧同形；`process_journal` 不收 Dart 侧未参与计算的 `Workflow` 参数，流程定义即状态机本身。
