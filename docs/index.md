@@ -69,7 +69,7 @@ memory 和 fiction 用的是同一套组织方式：
 
 读写对齐之后，下一步是在同一套结构上计算。解析产出的语义模型是这些计算的输入。
 
-计算逻辑已有现成规格——memory 侧的 Skill（journal-to-insight / to-profile / to-roadmap / to-intention）用自然语言规则实现了六类计算，LLM 执行：
+计算逻辑已有现成规格——记忆侧的 `meta-category` Skill 用自然语言规则实现了六类计算，LLM 执行：
 
 | 计算 | 逻辑 |
 |---|---|
