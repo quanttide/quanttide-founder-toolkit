@@ -1,6 +1,6 @@
 # quanttide_founder（Rust）
 
-> 当前在重建：`skills` 一层已可用（把编译期嵌入的 Agent Skill 装进目标仓），其余实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`。重建时在 `src/` 下按 core / memory / fiction 分层补上。
+> 当前在重建：`agent` 一层已可用（把编译期嵌入的 Agent Skill 装进目标仓），其余实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`。重建时在 `src/` 下按 core / memory / fiction 分层补上。
 
 量潮创始人标准库（quanttide-founder-toolkit）的 Rust 包，提供面向创始人角色的事务与工具能力。
 
@@ -8,15 +8,15 @@
 
 ```toml
 [dependencies]
-`quanttide-founder = "0.1.0-alpha.2"`
+quanttide-founder = "0.1.0-alpha.3"
 ```
 
-## `skills`：把嵌入的 Skill 装出去
+## `agent::skills`：把嵌入的 Skill 装出去
 
 宿主在自己的二进制里登记一批 `EmbeddedSkill`（编译期 `include_str!` 嵌入 SKILL.md），`install` 交给 `agent-skills-rs` 写盘：canonical 是 `<root>/.agents/skills/<name>`，可额外投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`。
 
 ```rust
-use quanttide_founder::skills::{self, EmbeddedSkill, InstallOptions, Mode};
+use quanttide_founder::agent::skills::{self, EmbeddedSkill, InstallOptions, Mode};
 
 const SKILLS: &[EmbeddedSkill] = &[EmbeddedSkill {
     id: "deploy-staging",

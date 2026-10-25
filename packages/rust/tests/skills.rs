@@ -2,7 +2,7 @@
 //!
 //! 每条 Skill 都用最小正文：这个库只管搬运，不挑内容。
 
-use quanttide_founder::skills::{
+use quanttide_founder::agent::skills::{
     EmbeddedSkill, InstallOptions, Mode, Status, describe, install, install_all, skill_path, status,
 };
 

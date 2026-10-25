@@ -2,14 +2,19 @@
 
 ## [Unreleased]
 
+## [0.1.0-alpha.3] - 2026-10-25
+
+`agent` 一层落地：把编译期嵌入的 Skill 装进目标仓。
+
 ### Added
 
-- **`skills` 模块**：把编译期嵌入的 Agent Skill 装进目标仓。`EmbeddedSkill` 登记正文与附属文件，`install` 交给 `agent-skills-rs` 写 `<root>/.agents/skills/<name>`、可选投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`；`status` 把磁盘正文与嵌入内容逐字比，给出未装／一致／不一致
+- **`agent::skills` 模块**：把编译期嵌入的 Agent Skill 装进目标仓。`EmbeddedSkill` 登记正文与附属文件，`install` 交给 `agent-skills-rs` 写 `<root>/.agents/skills/<name>`、可选投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`；`status` 把磁盘正文与嵌入内容逐字比，给出未装／一致／不一致
 - 校验：`id` 与 SKILL.md 的 `name` 不符在注册时拒绝；缺 frontmatter 同样拒绝
 - 测试：装盘与锁文件、三种状态、复制模式、额外投递目录、强制重装清旧文件、一条失败不影响同批
 
 ### Changed
 
+- 模块从 `src/skills.rs` 移到 `src/agent/skills.rs`，入口为 `quanttide_founder::agent::skills`；包根仍导出主要类型
 - 新增依赖 `agent-skills-rs` 0.3.1
 
 ## [0.1.0-alpha.2] - 2026-10-02
