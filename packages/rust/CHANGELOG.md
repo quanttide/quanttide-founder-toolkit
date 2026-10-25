@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`skills` 模块**：把编译期嵌入的 Agent Skill 装进目标仓。`EmbeddedSkill` 登记正文与附属文件，`install` 交给 `agent-skills-rs` 写 `<root>/.agents/skills/<name>`、可选投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`；`status` 把磁盘正文与嵌入内容逐字比，给出未装／一致／不一致
+- 校验：`id` 与 SKILL.md 的 `name` 不符在注册时拒绝；缺 frontmatter 同样拒绝
+- 测试：装盘与锁文件、三种状态、复制模式、额外投递目录、强制重装清旧文件、一条失败不影响同批
+
+### Changed
+
+- 新增依赖 `agent-skills-rs` 0.3.1
+
 ## [0.1.0-alpha.2] - 2026-10-02
 
 把执行接上设计：九处语义降级（字符串匹配、恒等返回、占位分支）换成对 core 接口的调用，判据从代码搬进 YAML。详见 [ROADMAP.md](docs/dev-guide/roadmap.md) 与 [docs/criteria.md](docs/criteria.md)。

@@ -1,6 +1,6 @@
 # quanttide_founder（Rust）
 
-> 当前为骨架：实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`，仅保留入口 `src/lib.rs`、包元数据与冒烟测试。重建时在 `src/` 下按 core / memory / fiction 分层添加。
+> 当前在重建：`skills` 一层已可用（把编译期嵌入的 Agent Skill 装进目标仓），其余实现、示例、测试与包内文档已归档至 `data/archive/toolkit/rust/`。重建时在 `src/` 下按 core / memory / fiction 分层补上。
 
 量潮创始人标准库（quanttide-founder-toolkit）的 Rust 包，提供面向创始人角色的事务与工具能力。
 
@@ -8,8 +8,31 @@
 
 ```toml
 [dependencies]
-quanttide-founder = "0.1.0-alpha.2"
+`quanttide-founder = "0.1.0-alpha.2"`
 ```
+
+## `skills`：把嵌入的 Skill 装出去
+
+宿主在自己的二进制里登记一批 `EmbeddedSkill`（编译期 `include_str!` 嵌入 SKILL.md），`install` 交给 `agent-skills-rs` 写盘：canonical 是 `<root>/.agents/skills/<name>`，可额外投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`。
+
+```rust
+use quanttide_founder::skills::{self, EmbeddedSkill, InstallOptions, Mode};
+
+const SKILLS: &[EmbeddedSkill] = &[EmbeddedSkill {
+    id: "deploy-staging",
+    skill_md: include_str!("../skills/deploy-staging/SKILL.md"),
+    auxiliary: &[],
+}];
+
+let mut options = InstallOptions::new(project_root);
+options.mode = Mode::Link;
+options.target_dirs = vec![project_root.join(".claude/skills")];
+
+let installed = skills::install(&SKILLS[0], &options)?;
+assert_eq!(skills::status(&SKILLS[0], &project_root), skills::Status::Current);
+```
+
+规矩只有两条：`id` 必须与 SKILL.md 的 `name` 一致，不一致在注册时就报错；附属文件只收文本，二进制不进二进制。
 
 ## 模块（归档结构）
 
