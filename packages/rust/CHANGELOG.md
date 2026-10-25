@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.0-alpha.5] - 2026-10-25
+
+### Changed
+
+- 模块名统一用单数：`agent::skills` 改为 `agent::skill`，文件 `src/agent/skills.rs` 改为 `src/agent/skill.rs`，集成测试同改；包根导出路径同步
+
 ## [0.1.0-alpha.4] - 2026-10-25
 
 ### Added

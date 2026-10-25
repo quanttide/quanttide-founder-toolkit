@@ -7,7 +7,7 @@
 
 pub mod agent;
 
-pub use agent::skills::{
+pub use agent::skill::{
     EmbeddedSkill, InstallOptions, Installed, Mode, Status, Summary, install_report,
 };
 

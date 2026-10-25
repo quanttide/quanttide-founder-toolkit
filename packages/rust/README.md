@@ -8,15 +8,15 @@
 
 ```toml
 [dependencies]
-quanttide-founder = "0.1.0-alpha.4"
+quanttide-founder = "0.1.0-alpha.5"
 ```
 
-## `agent::skills`：把嵌入的 Skill 装出去
+## `agent::skill`：把嵌入的 Skill 装出去
 
 宿主在自己的二进制里登记一批 `EmbeddedSkill`（编译期 `include_str!` 嵌入 SKILL.md），`install` 交给 `agent-skills-rs` 写盘：canonical 是 `<root>/.agents/skills/<name>`，可额外投递到 `.claude/skills`，并维护 `.agents/.skill-lock.json`。
 
 ```rust
-use quanttide_founder::agent::skills::{self, EmbeddedSkill, InstallOptions, Mode};
+use quanttide_founder::agent::skill::{self, EmbeddedSkill, InstallOptions, Mode};
 
 const SKILLS: &[EmbeddedSkill] = &[EmbeddedSkill {
     id: "deploy-staging",
@@ -28,8 +28,8 @@ let mut options = InstallOptions::new(project_root);
 options.mode = Mode::Link;
 options.target_dirs = vec![project_root.join(".claude/skills")];
 
-let installed = skills::install(&SKILLS[0], &options)?;
-assert_eq!(skills::status(&SKILLS[0], &project_root), skills::Status::Current);
+let installed = skill::install(&SKILLS[0], &options)?;
+assert_eq!(skill::status(&SKILLS[0], &project_root), skill::Status::Current);
 ```
 
 规矩只有两条：`id` 必须与 SKILL.md 的 `name` 一致，不一致在注册时就报错；附属文件只收文本，二进制不进二进制。
