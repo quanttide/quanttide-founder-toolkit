@@ -5,4 +5,4 @@
 
 pub mod skills;
 
-pub use skills::{EmbeddedSkill, InstallOptions, Installed, Mode, Status, Summary};
+pub use skills::{EmbeddedSkill, InstallOptions, Installed, Mode, Status, Summary, install_report};

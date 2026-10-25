@@ -121,7 +121,18 @@ pub fn describe(entry: &EmbeddedSkill) -> Result<Summary, String> {
 }
 
 /// 装一条 Skill，并记进锁文件。
+///
+/// 锁文件写不进去不算失败：系统位置可能已有一份别的工具写的锁文件，格式我们认不了；
+/// 那种情况下 Skill 照装，调用方用 [`install_report`] 取回一句提示。
 pub fn install(entry: &EmbeddedSkill, options: &InstallOptions) -> Result<Installed, String> {
+    install_report(entry, options).map(|(installed, _)| installed)
+}
+
+/// 同 [`install`]，多给一句锁文件提示；提示为空表示锁文件已更新。
+pub fn install_report(
+    entry: &EmbeddedSkill,
+    options: &InstallOptions,
+) -> Result<(Installed, Option<String>), String> {
     let skill = parse(entry)?;
     let canonical_dir = options.root.join(".agents").join("skills");
     let canonical = canonical_dir.join(&skill.name);
@@ -141,15 +152,19 @@ pub fn install(entry: &EmbeddedSkill, options: &InstallOptions) -> Result<Instal
     let result = install_skill(&skill, &config).map_err(|error| format!("{error:#}"))?;
 
     let lock_path = options.root.join(".agents").join(".skill-lock.json");
-    LockManager::new(lock_path)
+    let note = LockManager::new(lock_path)
         .update_entry(&skill.name, &embedded_source(), &result.path)
-        .map_err(|error| format!("锁文件写不了：{error:#}"))?;
+        .err()
+        .map(|error| format!("锁文件没更新：{error:#}"));
 
-    Ok(Installed {
-        id: skill.name,
-        path: result.path,
-        symlink_failed: result.symlink_failed,
-    })
+    Ok((
+        Installed {
+            id: skill.name,
+            path: result.path,
+            symlink_failed: result.symlink_failed,
+        },
+        note,
+    ))
 }
 
 /// 装一批：一条失败不影响其他条，按登记顺序返回结果。

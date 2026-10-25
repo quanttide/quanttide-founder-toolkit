@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.1.0-alpha.4] - 2026-10-25
+
+### Added
+
+- `install_report`：同 `install`，多返回一句锁文件提示
+
+### Fixed
+
+- 系统位置已有一份别的工具写的 `.skill-lock.json` 时不再拦安装：锁文件认不出来就跳过记录，Skill 照装，认不出的文件原样不动
+
 ## [0.1.0-alpha.3] - 2026-10-25
 
 `agent` 一层落地：把编译期嵌入的 Skill 装进目标仓。

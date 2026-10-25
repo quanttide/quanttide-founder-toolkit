@@ -8,7 +8,7 @@
 
 ```toml
 [dependencies]
-quanttide-founder = "0.1.0-alpha.3"
+quanttide-founder = "0.1.0-alpha.4"
 ```
 
 ## `agent::skills`：把嵌入的 Skill 装出去

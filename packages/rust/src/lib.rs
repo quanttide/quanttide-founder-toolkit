@@ -7,7 +7,9 @@
 
 pub mod agent;
 
-pub use agent::skills::{EmbeddedSkill, InstallOptions, Installed, Mode, Status, Summary};
+pub use agent::skills::{
+    EmbeddedSkill, InstallOptions, Installed, Mode, Status, Summary, install_report,
+};
 
 /// 包版本，取自 `Cargo.toml`。
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

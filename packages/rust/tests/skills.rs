@@ -3,7 +3,8 @@
 //! 每条 Skill 都用最小正文：这个库只管搬运，不挑内容。
 
 use quanttide_founder::agent::skills::{
-    EmbeddedSkill, InstallOptions, Mode, Status, describe, install, install_all, skill_path, status,
+    EmbeddedSkill, InstallOptions, Mode, Status, describe, install, install_all, install_report,
+    skill_path, status,
 };
 
 const SKILL_MD: &str = "---\nname: demo\ndescription: 演示用 Skill\n---\n\n# Demo\n";
@@ -74,6 +75,26 @@ fn 复制模式不依赖链接() {
 
     assert!(!installed.symlink_failed);
     assert!(installed.path.join("SKILL.md").is_file());
+}
+
+#[test]
+fn 锁文件认不了也不拦安装() {
+    let temp = tempfile::tempdir().expect("临时目录");
+    let root = temp.path();
+    std::fs::create_dir_all(root.join(".agents")).expect("建目录");
+    let lock = root.join(".agents/.skill-lock.json");
+    // 系统位置上常见的那份：版本是数字，条目缺 skillPath，本库的解析器认不了。
+    let foreign = r#"{"version":3,"skills":{"other":{"source":"open.feishu.cn","sourceType":"well-known","sourceUrl":"https://open.feishu.cn/x/SKILL.md","skillFolderHash":"","installedAt":"2026-10-15T11:01:12.867Z","updatedAt":"2026-10-15T11:01:12.867Z"}}}"#;
+    std::fs::write(&lock, foreign).expect("写得动");
+
+    let (installed, note) = install_report(&entry(), &InstallOptions::new(root)).expect("应装上");
+    assert!(installed.path.join("SKILL.md").is_file());
+    assert!(note.is_some(), "认不了锁文件时应当给提示");
+    assert_eq!(
+        std::fs::read_to_string(&lock).expect("读得动"),
+        foreign,
+        "不认识的文件不能被改掉"
+    );
 }
 
 #[test]
