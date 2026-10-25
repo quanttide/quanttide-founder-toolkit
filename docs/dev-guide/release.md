@@ -39,6 +39,10 @@ git commit -m "chore: update quanttide-founder-toolkit to <dart|rust>/vX.Y.Z"
 git push
 ~~~
 
+## 自动化
+
+标签推上来后，CI 会自动跑一遍门禁：格式、测试、clippy，再用 `cargo publish --dry-run` 验一次包形，然后补一条 GitHub Release，预发布版本自动打标。还没上架 crates.io，所以你只要不配 `CRATES_API_TOKEN`，发布那一步就会跳过；配好之后同一个标签重跑一次就能补上。
+
 ## 发布检查
 
 1. 目标包 CHANGELOG 含 `## [X.Y.Z]` 那一段，根索引指向正确
