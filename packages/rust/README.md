@@ -123,7 +123,7 @@ let workflow = quanttide_founder::Workflow::from_file("../../tests/fixtures/work
 
 - [docs/index.md](docs/index.md)——设计与执行的错位：设计意图、诊断与修复对照
 - [docs/criteria.md](docs/criteria.md)——九处语义判断的验收标准（意图/验收标准/边界）
-- [ROADMAP.md](ROADMAP.md)——core/exit 退出码路线图
+- [ROADMAP.md](ROADMAP.md)——路线图（当前无在排事项）
 - [CONTRIBUTING.md](CONTRIBUTING.md)——开发命令、测试与发布约定
 
 ## 许可

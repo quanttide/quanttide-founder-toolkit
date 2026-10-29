@@ -4,7 +4,7 @@
 
 ### Changed
 
-- `ROADMAP.md`：移至包根与 README 并列，接续新路线图——core/exit 退出码四码（0/1/2/3，2 用法错、3 对象缺席），core 为核心层；`docs/dev-guide/` 随之移除；上一份语义建模路线图随代码归档，README 指向同步
+- `ROADMAP.md`：移至包根与 README 并列；core/exit 退出码四码计划随后（2026-10-29）移至 qtfounder CLI 仓 `core` 模块——语义在 CLI 单点定义，少一层跨仓依赖，qtcloud 复制成本低，本包当前无在排事项；上一份语义建模路线图随代码归档，README 指向同步
 
 ## [0.1.0-alpha.5] - 2026-10-25
 
