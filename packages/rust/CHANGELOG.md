@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- `docs/dev-guide/roadmap.md` 接续新路线图：core/exit 退出码四码（0/1/2/3，2 用法错、3 对象缺席），core 为核心层；上一份语义建模路线图随代码归档，README 指向同步
+
 ## [0.1.0-alpha.5] - 2026-10-25
 
 ### Changed

@@ -1,76 +1,33 @@
 # ROADMAP
 
-Rust 包（quanttide_founder）路线图。问题分析见 [docs/index.md](docs/index.md)，验收标准见 [docs/criteria.md](docs/criteria.md)。结论：设计完整、执行降级——九处「需要理解」被填成了字符串匹配，根源是三分法（type / category / tag）没有落地。
+Rust 包（quanttide_founder）路线图。上一份路线图（语义建模重构）2026-10-02 验收通过，其代码与包内文档已随 2026-10-17 归档进 `data/archive/toolkit/`，本文件接续。`[x]` = 已完成。
 
-状态：全部完成，验收通过（2026-10-02）。`[x]` = 已完成，验收记录见文末。
+## core/exit：退出码四码
 
-## 原则
+CLI 的退出码是 API 五面（命令、输出、退出码、落盘、契约）之一，qtfounder CLI 打 `cli/v0.1.0` 前要冻结，冻结后改码即破坏性变更。语义在本包单点定义，CLI 只消费——将来再有第二个 CLI 也用同一套，不会再长出第二套码。
 
-- 重构从意图的可判断化开始：先写验收标准，再改类型；类型是验收标准的产物。
-- 每步只动一个东西，不重写整个项目。
-- 需要语义判断的地方接 core 已有的接口（`Engine::judge` / `LlmExtractor`），规则版只作降级。
-- 从最明显的坏点 `route` 开始——它牵动最多，修它会连锁暴露整串结构问题。
+### 范围
 
-## 阶段一：写验收标准（不改代码）
+- [ ] `src/core/exit.rs`：四个常量，语义写进文档注释——`OK = 0` 跑通无命中、`FINDINGS = 1` 跑通有命中、`USAGE = 2` 用法或环境错、`NOT_FOUND = 3` 目标缺席；2 与 3 的分界一句话：输入写法没错、对象缺席 = 3
+- [ ] `core` 为核心层：`lib.rs` 增 `pub mod core;`，后续核心常量与通用类型归这层
+- [ ] 测试钉住四个值互不相同且恰为 0..=3——谁改常量的值，`cargo test` 直接红，这就是冻结的测试锚点
+- [ ] 选常量不选枚举：`std::process::exit` 吃的就是 `i32`，枚举还得再转一层
 
-- [x] `Destination` 五个类别各写验收标准：意图、验收标准、边界（正例 / 反例 / 易混例），易混例给出裁决
-- [x] `InsightGrade` 分级验收标准（已确认 / 假说 / 被推翻）
-- [x] 「本质相同」验收标准（供 `cluster` / `is_same_essence` 用）
-- [x] 「情绪 → 外部观察」验收标准（供 `expand_observation`，不到 `Observed` 不给 `Settle`）
-- [x] 「稳定为思维框架」验收标准（供 `should_promote_to_profile`）
-- [x] 母题、包装文案、具体细节、被推翻各自的验收标准
+### 边界
 
-## 阶段二：Destination 改成 Artifact 的 key
+- Dart 侧不做：退出码是 CLI 独有概念，Dart 包没有 CLI 消费方；两侧同构承诺管的是业务模型，不摊这条
 
-- [x] 拆掉 `enum Destination`，四个变体变成四份 `Artifact.name`（insight / profile / roadmap / intention）
-- [x] `Journal` 改为补集：`ClassifiedEntry.destination` 为 `Option`，`None` 即留在 journal（`JOURNAL` 常量供展示）
-- [x] 验收标准写进 Artifact YAML，`rules.rs` 真正被加载、被使用（编译期嵌入 + 运行期 `from_file`）
-- [x] 分类签名改为数据驱动的 `classify(engine, text, categories)`，`text.contains("要")` 失去落脚点
+### 发布（需维护者定夺）
 
-## 阶段三：分类收成一次判断
+- [ ] 版本号维护者定（新增模块属兼容新增），CHANGELOG 记 Added
+- [ ] 推 crates.io，不自动执行
 
-- [x] 合并 `route` + `classify` 为单条 `classify(text)`，批量由调用方 map（状态机内循环），不留两层概念
-- [x] category 一次语义判断同时输出（去向 + 必填理由）；tag 单独走元数据提取（`JournalEntry::tags`：日期从文件名来，来源从路径来）；type 由解析期块类型回答
-- [x] 验收标准交给 `Engine::judge` 执行，删除五张关键词表（`COGNITION` / `INTENT` / `DIRECTION` / `PROFILE` / `ALL`）
+### 消费：qtfounder CLI（在 CLI 仓执行，此处只记依赖与验收）
 
-## 阶段四：其余降级逐个接回 core 接口
+- [ ] CLI 升依赖到新版本后对齐全仓：`main.rs` 的 `exit(2)`、`docs` 的 0/1/2、`product` 的 2/3 改用常量
+- [ ] 「目标缺席」对码：`docs format <不存在的文件>` 由 Err→2 改为 3；各命令测试补码值断言
+- [ ] CLI `CONTRIBUTING.md` 补四码表（正本是 `core/exit.rs` 的文档注释）
 
-| 位置 | 意图 | 目标接口 | 状态 |
-|:--|:--|:--|:--|
-| `grade` | 证据分级 | `Engine::judge(grade_rules, ...)` | [x] 计数降为证据输入，`grade_by_rules` 是显式降级 |
-| `cluster` / `is_same_essence` | 本质相同合并 | `Engine::judge(cluster_rules, items)` | [x] 失败保守不合并，分词重合度已删 |
-| `expand_observation` | 情绪提取外部观察 | `LlmExtractor::extract`（经 `Engine::extract`） | [x] 规则降级原样带下样本 |
-| `to_fragment` | 提炼母题 | `LlmExtractor::extract` | [x] 降级：母题取素材标题、场景截 50 字 |
-| `extract_packaging` | 提取包装文案 | `LlmExtractor::extract` | [x] 降级：`packaging_by_rules` 句子位置规则 |
-| `has_concrete_detail` | 含具体细节判断 | 验收标准 + `Engine::judge` | [x] 13 个单字动词已删，降级取首句 |
-| `is_refuted` | 判断被推翻 | `Engine::judge` | [x] 「不是」子串已删，失败按未推翻处理 |
+### 验收
 
-- [x] 每替换一处，验收标准同步落进 YAML；规则版 `RuleBasedExtractor` / 规则函数降为 fallback 而非主实现
-- [x] 主次关系显式化（trait 与函数文档标明 LLM 首选、规则降级），不再被 trait 抹成平级
-
-## 阶段五：同类错位清理（三分类落地）
-
-- [x] category → type：`InsightGrade`（名字来自 `insight.yaml` 的 `grades`）、`MergeAction`（名字来自 `cluster.yaml` 的 `actions`）、`Step.verb`（`Verb` 枚举）
-- [x] type → String：`split_by`（`SplitLevel`）、`title.source`（`TitleSource`）、`description.location`（`DescriptionLocation`）、`Step.verb` 加载期校验（`split_by: h7` 加载即失败）
-- [x] category → 计数：`should_promote_to_profile` 语义判断、次数降为证据（失败按计数降级）；`grade` 同上
-- [x] category → 关键词表：13 个单字动词与五张关键词表随阶段三、四删除
-- [x] 缺失语义：`ClassifiedEntry.reason`、`Judgment.reason` 改为必填，判断失败写明失败原因
-
-## 阶段六：执行缺陷修复
-
-- [x] `Engine::run` 的 `scan` 清空 `items`：scan 改为定位候选进 `WorkflowResult.candidates`，清单不动；关键词从 workflow 的 `rules` 文本读出（关键词是数据）
-- [x] `RuleBasedExtractor` 的「前言段 → description」改为配置（`description.location` 决定提取位置，`none` 则不提取）
-
-## 验证
-
-- [x] `cargo test` 56 个测试通过；`cargo clippy --all-targets` 无本包告警；`cargo fmt --check` 通过
-- [x] 验收标准进 YAML 后，换一份规则即换一种解读方式，无需改代码（`other_rules_reparse_the_same_document`、`classify_follows_supplied_categories_not_code`、`loads_shared_assets_end_to_end`）
-- [x] 与 Dart 包行为对齐：解析、四步/三步流程、编号轴逐条钉住；语义判断按「LLM 调用方式」差异实现——Dart 侧仍是关键词，Rust 侧经 `Engine::judge` 走 `tests/fixtures/` 验收标准（域编排差异仍是 statig 状态机）
-
-## 验收记录
-
-2026-10-02，`packages/rust`：
-
-- 测试：`cargo test` 56 通过（engine 12 / fiction 9 / memory 20 / parse 7 / rules 8）；`cargo fmt --check`、`cargo clippy --all-targets` 干净（仅依赖 `proc-macro-error2` 的 future-incompat 提示）
-- 示例：`parse_memory` / `parse_fiction` / `agent_subscribe` 直接通过；`memory_workflow`、`fiction_workflow` 对主仓库真实数据集跑通（配置了 `LLM_API_KEY` 走真实判断，分类理由逐条可见；未配置则走显式降级）
-- 资产：共享 YAML 迁至 toolkit 根 `tests/fixtures/`（原 `packages/dart/assets/`），Rust 编译期嵌入、测试按 `from_file` 端到端读取
+本包四绿（build / test / fmt / clippy）且包在 crates.io 可拉；CLI 侧 `cargo test` 全绿、四个出口被断言锁住。
